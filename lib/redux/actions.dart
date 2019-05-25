@@ -20,3 +20,12 @@ class DeleteItemFromListAction {
   DeleteItemFromListAction(this.item);
   final ListItems item;
 }
+class AddItemToWishListAction{
+  AddItemToWishListAction({this.item});
+  final ListItems item;
+}
+
+class DeleteItemFromWishListAction {
+  DeleteItemFromWishListAction({this.item});
+  final ListItems item;
+}

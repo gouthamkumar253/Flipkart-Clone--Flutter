@@ -28,6 +28,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   name: widget.item.name,
                   id: widget.item.id,
                   quantity: widget.item.quantity,
+                  image: widget.item.image,
                 ),
               ),
             );

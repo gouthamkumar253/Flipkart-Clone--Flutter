@@ -1,4 +1,5 @@
 import 'package:ecommerce/carousel.dart';
+import 'package:ecommerce/generate_items.dart';
 import 'package:ecommerce/models/products.dart';
 import 'package:ecommerce/shopping_item.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class ShoppingList extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Carousel(),
+                  GenerateItemDialog(),
                   GridView.builder(
                     itemCount: product.listItems.length,
                     //physics: ScrollPhysics(),

@@ -10,25 +10,30 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  splashscreen:
   swipedetector: ^1.2.0
   carousel_pro: ^0.0.1
+  built_value:
+  built_collection:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   faker:
   flutter_redux:
+  http: ^0.12.0+1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  build_runner:
+  built_value_generator:
 
 
 # For information on the generic Dart part of this file, see the
@@ -48,6 +53,13 @@ flutter:
     - images/shoe2.png
     - images/shoe3.png
     - images/shoe4.png
+    - images/ad1.png
+    - images/ad2.png
+    - images/ad3.png
+    - images/ad4.png
+    - images/ad5.png
+    - images/flipkart_logo.png
+    - images/man.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

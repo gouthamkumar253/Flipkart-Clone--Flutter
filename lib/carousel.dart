@@ -1,6 +1,8 @@
 import 'dart:async';
-import 'package:swipedetector/swipedetector.dart';
+
 import 'package:flutter/material.dart';
+
+int checkIndex = 0;
 
 class Carousel extends StatefulWidget {
   @override
@@ -8,134 +10,92 @@ class Carousel extends StatefulWidget {
 }
 
 class _CarouselState extends State<Carousel> {
+  final PageController _controller = PageController(viewportFraction: 0.95);
+  Duration seconds = const Duration(seconds: 3);
+
   void _nextImage() {
-    setState(() {
-      photoIndex = photoIndex < photos.length - 1 ? photoIndex + 1 : 0;
-      //print(photoIndex);
-      //print(time.toString());
-    });
-  }
-  void _previousImage() {
-    setState(() {
-      photoIndex = photoIndex > 0 ? photoIndex - 1 : photos.length-1;
-      //print(photoIndex);
-      //print(time.toString());
-    });
+    setState(
+      () {
+        photoIndex = photoIndex < photos.length - 1 ? photoIndex + 1 : 0;
+        _controller.nextPage(
+            duration: const Duration(milliseconds: 1000),
+            curve: Curves.fastOutSlowIn);
+      },
+    );
   }
 
-  Timer t,time;
+  Timer time;
 
   @override
   void initState() {
     super.initState();
-    const Duration oneSec = Duration(seconds: 4);
-    time=Timer.periodic(oneSec, (Timer t) => _nextImage());
+    const Duration sec = Duration(seconds: 4);
+    time = Timer.periodic(sec, (Timer t) => _nextImage());
   }
 
   int photoIndex = 0;
 
 // ignore: avoid_unused_constructor_parameter
-  List<String> photos = <String>[
-    'images/shoe1.png',
-    'images/shoe2.png',
-    'images/shoe3.png',
-    'images/shoe4.png',
+  List<Widget> photos = <Widget>[
+    Image.asset(
+      'images/ad1.png',
+      fit: BoxFit.fill,
+    ),
+    Image.asset(
+      'images/ad2.png',
+      fit: BoxFit.fill,
+    ),
+    Image.asset(
+      'images/ad3.png',
+      fit: BoxFit.fill,
+    ),
+    Image.asset(
+      'images/ad4.png',
+      fit: BoxFit.fill,
+    ),
+    Image.asset(
+      'images/ad5.png',
+      fit: BoxFit.fill,
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return SwipeDetector(
-      onSwipeLeft: (){
-        time.isActive?time.cancel():null;
-        _nextImage();
-      },
-      onSwipeRight: (){
-        time.isActive?time.cancel():null;
-        _previousImage();
-      },
-      child: Container(
-          child: Column(
+    return Container(
+      height: 220.0,
+      color: Colors.white,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Stack(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    //borderRadius: BorderRadius.circular(25.0),
-                    image: DecorationImage(
-                        image: AssetImage(photos[photoIndex]),
-                        fit: BoxFit.fill)),
-                height: 200.0,
+              SizedBox(
+                child: PageView.builder(
+                  controller: _controller,
+                  onPageChanged: (int index){
+                    if(checkIndex%5!=photoIndex)
+                      setState(() {
+                        print('true');
+                        time.cancel();
+                      });
+                    else
+                      print('false');
+                  },
+                  itemBuilder: (BuildContext context, int itemIndex) {
+                    checkIndex = itemIndex;
+                    return Card(
+                      elevation: 3.0,
+                      child: photos[itemIndex % 5],
+                    );
+                  },
+                ),
+                height: 220.0,
               ),
-              Positioned(
-                top: 175.0,
-                left: 25.0,
-                right: 25.0,
-                child: SelectedPhoto(
-                    numberOfDots: photos.length, photoIndex: photoIndex),
-              )
             ],
           ),
         ],
-      )),
-    );
-  }
-}
-
-class SelectedPhoto extends StatelessWidget {
-  const SelectedPhoto({this.numberOfDots, this.photoIndex});
-
-  final int numberOfDots;
-  final int photoIndex;
-
-  Widget _inactivePhoto() {
-    return Container(
-        child: Padding(
-      padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-      child: Container(
-        height: 8.0,
-        width: 8.0,
-        decoration: BoxDecoration(
-            color: Colors.grey, borderRadius: BorderRadius.circular(4.0)),
-      ),
-    ));
-  }
-
-  Widget _activePhoto() {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-        child: Container(
-          height: 10.0,
-          width: 13.0,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(7.0),
-              boxShadow: const <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey, spreadRadius: 0.0, blurRadius: 2.0)
-              ]),
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _buildDots() {
-    final List<Widget> dots = <Widget>[];
-
-    for (int i = 0; i < numberOfDots; ++i) {
-      dots.add(i == photoIndex ? _activePhoto() : _inactivePhoto());
-    }
-
-    return dots;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _buildDots(),
       ),
     );
   }

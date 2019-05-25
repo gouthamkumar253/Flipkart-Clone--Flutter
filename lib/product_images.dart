@@ -14,16 +14,12 @@ class ProductImages extends StatefulWidget {
 class _ProductImagesState extends State<ProductImages> {
   int photoIndex = 0;
   @override
-  void initState() {
-    super.initState();
-  }
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 450.0,
-//      width: ,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -63,7 +59,7 @@ class _ProductImagesState extends State<ProductImages> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(photos[photoIndex]), fit: BoxFit.fill),
+            image: AssetImage(photos[photoIndex]), fit: BoxFit.contain),
       ),
     );
   }

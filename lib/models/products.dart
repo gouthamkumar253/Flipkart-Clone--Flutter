@@ -7,7 +7,8 @@ class Products {
   Products() {
     cartItems = <ListItems>[];
     listItems = <ListItems>[];
+    wishListItems=<ListItems>[];
   }
 
-  List<ListItems> listItems, cartItems;
+  List<ListItems> listItems, cartItems,wishListItems;
 }

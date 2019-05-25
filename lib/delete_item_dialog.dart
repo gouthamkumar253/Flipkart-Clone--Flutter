@@ -34,7 +34,7 @@ class _DeleteItemDialogState extends State<DeleteItemDialog> {
             contentPadding: const EdgeInsets.all(16.0),
             content: Row(
               children: <Widget>[
-                Text(item.id.toString()),
+                Text(item.name),
               ],
             ),
             actions: <Widget>[

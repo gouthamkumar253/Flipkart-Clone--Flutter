@@ -1,5 +1,4 @@
-//import 'package:ecart_redux/models/cart_items.dart';
-//import 'package:ecart_redux/models/list_items.dart';
+import'dart:math';
 import 'package:ecommerce/main.dart';
 import 'package:ecommerce/models/list_items.dart';
 import 'package:ecommerce/models/products.dart';
@@ -17,10 +16,16 @@ class CreateItemDialog extends StatefulWidget {
 }
 
 class _CreateItemDialogState extends State<CreateItemDialog> {
-  final ListItems item = ListItems(name: null,quantity: -1,id: -1);
+  final ListItems item = ListItems(name: null,quantity: -1,id: -1,image: null);
   static int listId = 1;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  Random random=Random();
+  List<String> imagesList=<String>[
+    'images/shoe1.png',
+    'images/shoe2.png',
+    'images/shoe3.png',
+    'images/shoe4.png',
+  ];
   @override
   Widget build(BuildContext context) {
     return StoreConnector<Products, OnItemCreatedCallback>(
@@ -31,6 +36,7 @@ class _CreateItemDialogState extends State<CreateItemDialog> {
               name: item.name,
               id: listId++,
               quantity: item.quantity,
+              image: imagesList[random.nextInt(4)],
             ),
           ),
         );

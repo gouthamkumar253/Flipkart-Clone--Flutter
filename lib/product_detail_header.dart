@@ -95,7 +95,7 @@ class ProductDetailHeader extends StatelessWidget {
             const SizedBox(
               width: 8.0,
             ),
-            const Text('25 ratings'),
+            const Text('25 ratings',style: TextStyle(color: Colors.grey),),
           ],
         )
       ],
